@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0">
+        
+        <style>
+            body {
+             font-family: Arial, sans-serif;
+             background-color: #f5f7fa;
+             text-align: center;
+            } 
+
+          h1 { margin-top: 20px;
+            }
+
+          h2 {
+             margin-bottom: 10px;
+             }
+
+/* card style */
+          div {
+           background-color: white;
+           width: 70%;
+           margin: 20px auto;
+           padding: 20px;
+           border-radius: 10px;
+           box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+           }
+
+/* form layout */
+           label {
+              display: block;
+              margin-top: 10px;
+              font-weight: bold;
+            }
+
+          input, select {
+              width: 80%;
+              padding: 8px;
+              margin-top: 5px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+            }
+
+/* button */
+        button {
+            margin-top: 15px;
+           padding: 10px 20px;
+           background-color: #2d6cdf;
+           color: white;
+           border: none;
+           border-radius: 5px;
+          cursor: pointer;
+        }
+
+       button:hover {
+         background-color: #1e4fa3;
+        }
+
+/* table */
+       table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 10px;
+        }
+
+       th, td {
+          padding: 12px;
+          border-bottom: 1px solid #ddd;
+        }
+
+       th {
+         background-color: #f1f1f1;
+        }
+
+/* delete button */
+       td button {
+         background-color: #e74c3c;
+        }
+
+       td button:hover {
+         background-color: #c0392b;
+        }
+        </style>
+    </head>
+
+    <body>
+        <title>CRM SYSTEM</title>
+        <h1>CRM SYSTEM</h1>
+        <h2>Add New Lead</h2>
+        <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter name">
+        </div>
+
+        <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter Email">
+        </div>
+
+        <div>
+        <label for="status">Status:</label>
+        <select id="status">
+            <option>New</option>
+            <option>Contacted</option>
+            <option>Closed</option>
+        </select>
+        </div>
+        <div>
+            <button id="add">Add Leads</button>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            
+                <tbody id="leadtable"></tbody>
+            </table>
+        </div>
+        <script>
+            document.getElementById("add").addEventListener("click", function() {
+                let name=document.getElementById("name").value;
+                let email=document.getElementById("email").value;
+                let status=document.getElementById("status").value;
+
+                if (name == "" || email == ""){
+                    alert("Please fill all fields");
+                    return;
+                }
+
+                let table= document.getElementById("leadtable");
+
+                let row=document.createElement("tr");
+
+                row.innerHTML=`
+                       <td>${name}</td>
+                       <td>${email}</td>
+                    <td>
+                        <select>
+                            <option ${status === "New"?"selected":""}>New</option>
+                            <option ${status === "Contacted"?"selected":""}>Contacted</option>
+                            <option ${status === "Closed"?"selected":""}>Closed</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button onclick="deleteRow(this)">Delete</button>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+
+                document.getElementById("name").value = "";
+                document.getElementById("email").value= "";                        
+            });
+            function deleteRow(btn){
+                btn.parentElement.parentElement.remove();
+            }
+        </script>
+    </body>
+</html>
